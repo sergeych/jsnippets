@@ -1,0 +1,8 @@
+h1. Some javascripts snippets for jQuery
+
+This is private collection of useful scripts I had to write when moving from Rails project from prototype
+to jQuery. While jQuery is in many aspects better than prototype, it misses some mechanics (or I failed to find it),
+so I gonna add it there for future use in other migrations of such kind.
+
+Try it on your own risk. The function of the module should be clear from its name.
+
