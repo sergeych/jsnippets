@@ -1,12 +1,8 @@
 /**
- * Event.simulate(@element, eventName[, options]) -> jWuery element
- * - modified to run under jQuery, from prototype
+ * $('#foo').simulate('click'[,options]); // => fires "click" event on an element with id=foo
+ * Prototype's idea, modified to run under jQuery
  * 
- * - @element: element to fire event on
- * - eventName: name of event to fire (only MouseEvents and HTMLEvents interfaces are supported)
  * - options: optional object to fine-tune event properties - pointerX, pointerY, ctrlKey, etc.
- *
- *    $('foo').simulate('click'); // => fires "click" event on an element with id=foo
  * 
  **/
 (function(){
@@ -28,11 +24,10 @@
     cancelable: true
   }
   
-  Event.simulate = function(element, eventName) {
-    var options = Object.extend(Object.clone(defaultOptions), arguments[2] || { });
+  jQuery.fn.simulate = function(eventName) {
+		var element = this[0];
+    var options = $.extend(true, defaultOptions, arguments[2] || { });
     var oEvent, eventType = null;
-    
-    element = $(element);
     
     for (var name in eventMatchers) {
       if (eventMatchers[name].test(eventName)) { eventType = name; break; }
@@ -56,11 +51,9 @@
     else {
       options.clientX = options.pointerX;
       options.clientY = options.pointerY;
-      oEvent = Object.extend(document.createEventObject(), options);
+      oEvent = $.extend(document.createEventObject(), options);
       element.fireEvent('on' + eventName, oEvent);
     }
     return element;
   }
-  
-  jQuery.fn.simulate = Event.simulate;
-})()
+})();
